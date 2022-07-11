@@ -1,6 +1,6 @@
  <!-- Custom css -->
-    <script src="https://global.oktacdn.com/okta-signin-widget/5.16.0/js/okta-sign-in.min.js" type="text/javascript"></script>
-    <link href="https://global.oktacdn.com/okta-signin-widget/5.16.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
+    <script src="https://global.oktacdn.com/okta-signin-widget/6.5.0/js/okta-sign-in.min.js" type="text/javascript"></script>
+    <link href="https://global.oktacdn.com/okta-signin-widget/6.5.0/css/okta-sign-in.min.css" type="text/css" rel="stylesheet"/>
     <section class="main-container">
         <div class="container" >
            <div class="row">
@@ -12,35 +12,14 @@
                   }
                 </style>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="changelanguage('cs')">Czech</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('da')">Danish</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('de')">German</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('el')">Greek</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('en')">English</a>
+                    <a class="dropdown-item" href="#" onclick="changelanguage('en')">English</a>
                     <a value="press" class="dropdown-item" href="#" onclick="changelanguage('es')">Spanish</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('fi')">Finnish</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('fr')">French</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('hu')">Hungarian</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('id')">Indonesian</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('it')">Italian</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('ja')">Japanese</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('ko')">Korean</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('ms')">Malaysian</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('nb')">Norwegian</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('nl-NL')">Dutch</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('pl')">Polish</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('pt-BR')">Portuguese (Brazil)</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('ro')">Romanian</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('ru')">Russian</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('sv')">Swedish</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('th')">Thai</a>
-                    <a value="press" class="dropdown-item" href="#" onclick="changelanguage('tr')">Turkish</a>
                     <a value="press" class="dropdown-item" href="#" onclick="changelanguage('uk')">Ukrainian</a>
                     <a value="press" class="dropdown-item" href="#" onclick="changelanguage('zh-CN')">Chinese (PRC)</a>
                     <a value="press" class="dropdown-item" href="#" onclick="changelanguage('zh-TW')">Chinese (Taiwan)</a>
                 </div>
             </div>
-            <div class="col-md-8 offset-md-2">
+            <div class="col-md-4 offset-md-0">
             <!-- main start -->
             <!-- ================ -->
              <div class="main col-12">
@@ -89,6 +68,13 @@
                         box-shadow: none
                     }
 
+                    #okta-sign-in.auth-container.main-container
+                    {
+                        background-color: transparent;
+                        border-color: transparent;
+                        width: 85%;
+                    }
+
                   </style>
                   <script>
                   function changelanguage(lang){
@@ -124,18 +110,18 @@
                         idpDiscovery:true,
                           {% endif %}
                         {% endif %}
-                        registration: true,                 // Enable self-service registration flow
+                        registration: false,                 // Enable self-service registration flow
                         rememberMe: true,                   // Setting to false will remove the checkbox to save username
                         multiOptionalFactorEnroll: true,  // Allow users to enroll in multiple optional factors before finishing the authentication flow.
                         selfServiceUnlock: true,          // Will enable unlock in addition to forgotten password
                         smsRecovery: true,                // Enable SMS-based account recovery
-                        callRecovery: true,               // Enable voice call-based account recovery
+                        callRecovery: false,               // Enable voice call-based account recovery
                         webauthn: true                    // Enable Webauthn and disable Windows Hello
                       },
                       {% if idp %}
                       {% if idptype %}
                       idpDiscovery: {
-                        requestContext: '{{request.url_root | replace("http://", "https://")  }}'
+                        requestContext: '{{request.url_root | replace("http://", "http://")  }}'
                       },
                       {% endif %}
                       {% endif %}
@@ -162,7 +148,7 @@
                         state: '{{state}}',
                         display: 'page',
                         pkce: false,
-                        scopes: ['openid', 'profile', 'email'] },
+                        scopes: ['openid', 'profile', 'email', 'usps_role'] },
                         transformUsername: function (username, operation) {
                           if (isNaN(username))
                           {

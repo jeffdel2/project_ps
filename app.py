@@ -58,6 +58,9 @@ app.register_blueprint(gbac_registration_bp, url_prefix='/')
 from GlobalBehaviorandComponents.findusername import gbac_findusername_bp
 app.register_blueprint(gbac_findusername_bp, url_prefix='/')
 
+from GlobalBehaviorandComponents.managesmsverification import gbac_managesmsverification_bp
+app.register_blueprint(gbac_managesmsverification_bp, url_prefix='/')
+
 from GlobalBehaviorandComponents.validation import gvalidation_bp, get_userinfo
 app.register_blueprint(gvalidation_bp, url_prefix='/')
 

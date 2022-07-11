@@ -73,6 +73,7 @@ def ecommerce_account():
 def ecommerce_shop():
     logger.debug("ecommerce_shop()")
     products = requests.get(url=session[SESSION_INSTANCE_SETTINGS_KEY]["settings"]["app_ecomm_products"])
+    print(products.text)
 
     return render_template(
         "ecommerce/shop.html",

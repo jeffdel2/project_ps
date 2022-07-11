@@ -1,10 +1,11 @@
 import logging
 
 # import functions
-from flask import render_template, url_for, redirect, session, request
+from flask import render_template, url_for, redirect, session, request, json
 from flask import Blueprint
 
 from utils.okta import OktaAdmin
+from utils.okta import OktaAuth
 from utils.udp import SESSION_INSTANCE_SETTINGS_KEY, get_app_vertical, apply_remote_config
 from utils.email import Email
 
@@ -45,26 +46,33 @@ def gbac_senduser_completion():
     email = ""
     login = ""
 
-
     user_response = okta_admin.get_user_list_by_search("profile.firstName eq \"" + firstName + "\" and profile.lastName eq \"" + lastName + "\" &limit=1")
 
     if user_response:
         logger.debug("*********************************")
         login = user_response[0]['profile']['login']
         user_id = user_response[0]['id']
+        logger.debug("*********************************")
         logger.debug(user_id)
         factors = okta_admin.list_enrolled_factors(user_id)
+        logger.debug("*********************************")
+        logger.debug(factors)
         factor_id = factors[0]['id']
+        logger.debug("*********************************")
         logger.debug(factor_id)
         logger.debug("*********************************")
         okta_admin.send_push(user_id, factor_id)
-        logger.debug("*********************************")
+        
+        #okta_admin.verify_push(user_id, factor_id)
+
         recipients = []
         recipients.append({"address": user_response[0]["profile"]["email"]})
         logger.debug(user_response)
 
         emailLogin(recipients, login)
-        message = "The requested username was found and an SMS code is being sent to: " + user_response[0]["profile"]["firstName"] + " " + user_response[0]["profile"]["lastName"] + " at the following phone number: " + user_response[0]["profile"]["mobilePhone"]
+
+        #message = "The requested username was found and an SMS message is being sent to: " + user_response[0]["profile"]["firstName"] + " " + user_response[0]["profile"]["lastName"] + " at the following phone number: " + user_response[0]["profile"]["mobilePhone"]
+        message = "The requested username " + user_response[0]["profile"]["email"] + " was found and a push message is being sent to: " + user_response[0]["profile"]["firstName"] + " " + user_response[0]["profile"]["lastName"] + " on their registered device"
     else:
         message = "The requested username was not found. Please try again."
 

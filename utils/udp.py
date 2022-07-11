@@ -69,7 +69,7 @@ def is_configured_remotely():
     logger.debug("is_configured_remotely()")
     # Always assume false unless explicitly set
     if SESSION_IS_CONFIGURED_KEY not in session:
-        session[SESSION_IS_CONFIGURED_KEY] = False
+        session[SESSION_IS_CONFIGURED_KEY] = True
 
     if SESSION_INSTANCE_SETTINGS_KEY not in session:
         session[SESSION_INSTANCE_SETTINGS_KEY] = default_settings

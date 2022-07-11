@@ -54,3 +54,11 @@ terraform destroy --lock=false -var-file=admin.tfvars
 ## Resources
 
 Highly recommending using a Terraform Version Manager tool like [tfenv](https://github.com/tfutils/tfenv).
+
+
+
+auth_server_id = "aus4jyc1ldieL4Eoo5d7"
+client_id = "0oa4jyb0kk5NNutXZ5d7"
+client_secret = <sensitive>
+domain = "dev-usps-demo.okta.com"
+issuer = "https://dev-usps-demo.okta.com/oauth2/aus4jyc1ldieL4Eoo5d7"
