@@ -1,3 +1,0 @@
-org_name        = "<okta_subdomain, e.g. atko>"
-api_token       = "<okta_api_token>"
-base_url        = "<the okta domain  e.g. oktapreview.com, okta.com, or okta-emea.com>"
